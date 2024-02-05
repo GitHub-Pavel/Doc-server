@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int            @id @default(autoincrement())
+  roles        Role[]         @default([HELPER])
+  username     String         @unique
+  hash         String
+  salt         String
+  refreshToken RefreshToken[]
+  email        Email[]
+}
+
+model RefreshToken {
+  user   User   @relation(fields: [userId], references: [id])
+  id     Int    @id @default(autoincrement())
+  token  String @unique
+  userId Int
+}
+
+model Email {
+  user           User    @relation(fields: [userId], references: [id])
+  id             Int     @id @default(autoincrement())
+  isActivated    Boolean @default(false)
+  userId         Int     @unique
+  email          String  @unique
+  authToken      String? @unique
+  secret         String?
+  activationLink String?
+}
+
+enum Role {
+  NOTACTIVE
+  GROUPMOD
+  HELPER
+  ADMIN
+  MOD
+}
+
+model Friend {
+  id      Int     @id @default(autoincrement())
+  chars   String  @unique
+  Places  Place[]
+  groupId Int?
+
+  GroupLead Group[] @relation("GroupLead")
+  GroupUser Group?  @relation("GroupUsers", fields: [groupId], references: [id])
+
+  @@unique([id, chars])
+}
+
+model Group {
+  id        Int     @id @default(autoincrement())
+  group     Int     @unique
+  leadId    Int?
+  leadChars String?
+
+  GroupUsers Friend[] @relation("GroupUsers")
+  GroupLead  Friend?  @relation("GroupLead", fields: [leadId, leadChars], references: [id, chars])
+}
+
+model Place {
+  friend    Friend? @relation(fields: [friendId], references: [id])
+  id        Int     @id @default(autoincrement())
+  isOnHands Boolean @default(false)
+  number    Int     @unique
+  takeAt    Int?
+  doneAt    Int?
+  friendId  Int?
+}
+
+model Option {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  value String
+}

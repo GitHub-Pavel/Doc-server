@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Email activation - <%= type %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="<%= apiUrl %>/favicon.svg" type="image/x-icon">
+  <link rel="stylesheet" href="<%= apiUrl+'/css/email-'+type+'.css' %>">
+</head>
+
+<body>
+  <div class="app">
+    <h1 class="app__heading"><%= heading %></h1>
+
+    <% if ( description ) { %>
+    <p class="app__desc"><%= description %></p>
+    <% } %>
+
+    <img class="app__gif" width="360" alt="<%= type %>" src="<%= apiUrl+'/'+type %>.gif">
+
+    <% for( let i=0; i<6; i++ ) { %>
+    <div class="app__cube"></div>
+    <% } %>
+  </div>
+</body>
+
+</html>

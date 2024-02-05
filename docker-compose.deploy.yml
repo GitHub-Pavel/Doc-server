@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    hostname: postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=docjw
+      - POSTGRES_USER=docjw
+      - POSTGRES_PASSWORD=Car58it91res235
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+  deploy:
+    image: nestjs-deploy:1.0.0
+    container_name: netsjs-deploy
+    build:
+      context: .
+      dockerfile: nest.Dockerfile
+      args:
+        DOTENV_FILE: deploy.env
+    command: npm run start:prod
+    depends_on:
+      - postgres
+    restart: always
+    ports:
+      - 3000:3000
+  
+volumes:
+  postgres:

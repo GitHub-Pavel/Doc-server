@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.app {
+    height: 100vh;
+    font-family: sans-serif;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #040204;
+    overflow: hidden;
+}
+
+.app__heading {
+    font-size: 56px;
+    position: relative;
+    z-index: 1;
+    padding: 0 20px;
+    color: #a50d0d;
+}
+
+.app__desc {
+    font-size: 22px;
+    margin-top: 15px;
+    margin-bottom: 40px;
+    color: #ffffff;
+    padding: 0 20px;
+}
+
+.app__gif {
+    display: block;
+    max-width: 100%;
+    margin-top: -40px;
+}
+
+@media (max-width: 580px) {
+    .app__heading {
+        font-size: 42px;
+    }
+
+    .app__desc {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 340px) {
+    .app__heading {
+        font-size: 36px;
+    }
+
+    .app__desc {
+        font-size: 16px;
+    }
+}
+
+.app__cube {
+    position: absolute;
+    top: 80vh;
+    left: 45vw;
+    width: 10px;
+    height: 10px;
+    border-style: solid;
+    border-color: #150303;
+    border-width: 1px;
+    transform-origin: top left;
+    transform: scale(0) rotate(0deg) translate(-50%, -50%);
+    -webkit-animation: cube 8s ease-in forwards infinite;
+    animation: cube 8s ease-in forwards infinite;
+}
+
+.app__cube:nth-child(odd) {
+    border-color: #230202;
+}
+
+.app__cube:nth-child(2) {
+    -webkit-animation-delay: 1.5s;
+    animation-delay: 1.5s;
+    left: 25vw;
+    top: 40vh;
+}
+
+.app__cube:nth-child(3) {
+    -webkit-animation-delay: 3.5s;
+    animation-delay: 3.5s;
+    left: 75vw;
+    top: 50vh;
+}
+
+.app__cube:nth-child(4) {
+    -webkit-animation-delay: 5.5s;
+    animation-delay: 5, 5s;
+    left: 90vw;
+    top: 10vh;
+}
+
+.app__cube:nth-child(5) {
+    -webkit-animation-delay: 7.5s;
+    animation-delay: 7.5s;
+    left: 10vw;
+    top: 85vh;
+}
+
+.app__cube:nth-child(6) {
+    -webkit-animation-delay: 9s;
+    animation-delay: 9s;
+    left: 50vw;
+    top: 10vh;
+}
+
+@-webkit-keyframes cube {
+    from {
+        transform: scale(0) rotate(0deg) translate(-50%, -50%);
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(20) rotate(1080deg) translate(-50%, -50%);
+        opacity: 0;
+    }
+}
+
+@keyframes cube {
+    from {
+        transform: scale(0) rotate(0deg) translate(-50%, -50%);
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(20) rotate(1080deg) translate(-50%, -50%);
+        opacity: 0;
+    }
+}
